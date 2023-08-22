@@ -3,6 +3,19 @@ const User = require('../models/User');
 const getNextId = require('../utils/getNextId');
 const UserRouter = express.Router();
 // =============================================================================
+// //GET ALL Users API
+// =============================================================================
+UserRouter.get('/', async (req, res) => {
+    
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+// =============================================================================
 // //REGISTER User API
 // =============================================================================
 UserRouter.post('/register', async (req, res) => {
