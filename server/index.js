@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const teacherRouter = require('./routes/User_Routes');
+const UserRouter = require('./routes/User_Routes');
 const stageRouter = require('./routes/Stages_Routes');
 const groupRouter = require('./routes/Groups_Routes');
 const studentRouter = require('./routes/Student_Routes');
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 // Routes
-app.use("/teacher", teacherRouter);
+app.use("/user", UserRouter);
 app.use("/stages", stageRouter);
 app.use("/groups", groupRouter);
 app.use("/student", studentRouter);
