@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './Navbar.css'
 import { Link, useLocation } from "react-router-dom"
 import jwt_decode from "jwt-decode";
-import { useUserLogin, useToast, useWishlist, useCart, useOrders, useSearchBar } from "../../index"
+import { useUserLogin, useWishlist, useCart, useOrders, useSearchBar } from "../../index"
 import { BsShopWindow, BsFillBagFill } from "react-icons/bs"
 
 function Navbar() {
@@ -11,7 +11,7 @@ function Navbar() {
     const { userCart, dispatchUserCart } = useCart()
     const { userOrders, dispatchUserOrders } = useOrders()
     const { setUserLoggedIn } = useUserLogin(false)
-    const { showToast } = useToast()
+ 
     const location = useLocation()
     const { searchBarTerm, setSearchBarTerm } = useSearchBar()
 
@@ -62,7 +62,6 @@ function Navbar() {
         dispatchUserOrders({type:"UPDATE_USER_ORDERS",payload:[]})
         setUserLoggedIn(false)
         localStorage.clear()
-        showToast("success","","Logged out successfully")
     }
     
     return (

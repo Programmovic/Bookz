@@ -3,14 +3,13 @@ import { useState } from "react"
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom"
-import { useToast, useCart, useWishlist } from "../../index"
 import { useEffect } from "react";
+import { useCart, useWishlist } from "../../index"
 
 function HorizontalProductCard({productDetails})
 {
     const navigate = useNavigate()
 
-    const { showToast } = useToast()
     const { dispatchUserWishlist } = useWishlist()
     const { dispatchUserCart } = useCart()
     const {
@@ -54,7 +53,6 @@ function HorizontalProductCard({productDetails})
             }
             else
             {
-                showToast("error","","Something went wrong!")
             }
         })()
     },[productQuantity])
@@ -71,7 +69,6 @@ function HorizontalProductCard({productDetails})
             if(!user)
             {
                 localStorage.removeItem('token')
-                showToast("warning","","Kindly Login")
                 navigate('/login')
             }
             else
@@ -91,13 +88,13 @@ function HorizontalProductCard({productDetails})
                 if(cartUpdateResponse.data.status==="ok")
                 {
                     dispatchUserCart({type: "UPDATE_USER_CART",payload: cartUpdateResponse.data.user.cart})
-                    showToast("success","","Item successfully deleted from cart")
+
                 }
             }
         }
         else
         {
-            showToast("warning","","Kindly Login")
+
         } 
     }
 
@@ -112,7 +109,7 @@ function HorizontalProductCard({productDetails})
             if(!user)
             {
                 localStorage.removeItem('token')
-                showToast("warning","","Kindly Login")
+
                 navigate('/login')
             }
             else
@@ -133,13 +130,13 @@ function HorizontalProductCard({productDetails})
                 if(wishlistUpdateResponse.data.status==="ok")
                 {
                     dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                    showToast("success","","Item successfully added to wishlist")
+
                 }
             }
         }
         else
         {
-            showToast("warning","","Kindly Login")
+
         } 
     }
 

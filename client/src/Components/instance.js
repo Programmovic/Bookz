@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = axios.create({
+const instance = axios.create({
     baseURL: "https://bookz-91j9.onrender.com/"
 })
 
-export default baseURL
+export default instance

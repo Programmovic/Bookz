@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import jwt_decode from "jwt-decode";
 import './ProductCard.css'
-import { useToast } from '../../Context/toast-context';
 import { useWishlist } from '../../Context/wishlist-context';
 
 export default function ProductCard({ productdetails }) 
@@ -11,7 +10,6 @@ export default function ProductCard({ productdetails })
     const navigate = useNavigate()
 
     const { userWishlist, dispatchUserWishlist } = useWishlist()
-    const { showToast } = useToast()
     const {
         _id, 
         bookName,
@@ -58,7 +56,6 @@ export default function ProductCard({ productdetails })
                 if(!user)
                 {
                     localStorage.removeItem('token')
-                    showToast("warning","","Kindly Login")
                     navigate('/login')
                 }
                 else
@@ -81,13 +78,12 @@ export default function ProductCard({ productdetails })
                         setWishlistHeartIcon("fa-heart")
                         setWishlistBtn("added-to-wishlist-btn")
                         dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                        showToast("success","","Item successfully added to wishlist")
+                       
                     }
                 }
             }
             else
             {
-                showToast("warning","","Kindly Login")
             }   
         }
         else
@@ -102,7 +98,6 @@ export default function ProductCard({ productdetails })
                 if(!user)
                 {
                     localStorage.removeItem('token')
-                    showToast("warning","","Kindly Login")
                     navigate('/login')
                 }
                 else
@@ -124,13 +119,13 @@ export default function ProductCard({ productdetails })
                         setWishlistHeartIcon("fa-heart-o")
                         setWishlistBtn("add-to-wishlist-btn")
                         dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                        showToast("success","","Item successfully deleted from wishlist")
+     
                     }
                 }
             }
             else
             {
-                showToast("warning","","Kindly Login")
+
             }   
         }    
     }

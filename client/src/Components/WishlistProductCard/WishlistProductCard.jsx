@@ -4,7 +4,6 @@ import axios from "axios"
 import jwt_decode from "jwt-decode";
 import './WishlistProductCard.css'
 import {
-    useToast,
     useWishlist,
     useCart
 } from '../../index'
@@ -15,7 +14,6 @@ export default function WishlistProductCard({ productdetails })
 
     const { userWishlist, dispatchUserWishlist } = useWishlist()
     const { dispatchUserCart } = useCart()
-    const { showToast } = useToast()
     const {
         _id, 
         bookName,
@@ -62,7 +60,6 @@ export default function WishlistProductCard({ productdetails })
                 if(!user)
                 {
                     localStorage.removeItem('token')
-                    showToast("warning","","Kindly Login")
                     navigate('/login')
                 }
                 else
@@ -85,13 +82,13 @@ export default function WishlistProductCard({ productdetails })
                         setWishlistHeartIcon("fa-heart")
                         setWishlistBtn("added-to-wishlist-btn")
                         dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                        showToast("success","","Item successfully added to wishlist")
+               
                     }
                 }
             }
             else
             {
-                showToast("warning","","Kindly Login")
+               
             }   
         }
         else
@@ -106,7 +103,6 @@ export default function WishlistProductCard({ productdetails })
                 if(!user)
                 {
                     localStorage.removeItem('token')
-                    showToast("warning","","Kindly Login")
                     navigate('/login')
                 }
                 else
@@ -128,13 +124,12 @@ export default function WishlistProductCard({ productdetails })
                         setWishlistHeartIcon("fa-heart-o")
                         setWishlistBtn("add-to-wishlist-btn")
                         dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                        showToast("success","","Item successfully deleted from wishlist")
+      
                     }
                 }
             }
             else
             {
-                showToast("warning","","Kindly Login")
             }   
         }    
     }
@@ -150,7 +145,7 @@ export default function WishlistProductCard({ productdetails })
             if(!user)
             {
                 localStorage.removeItem('token')
-                showToast("warning","","Kindly Login")
+
                 navigate('/login')
             }
             else
@@ -170,13 +165,13 @@ export default function WishlistProductCard({ productdetails })
                 if(cartUpdateResponse.data.status==="ok")
                 {
                     dispatchUserCart({type: "UPDATE_USER_CART",payload: cartUpdateResponse.data.user.cart})
-                    showToast("success","","Item successfully added to cart")
+     
                 }
             }
         }
         else
         {
-            showToast("warning","","Kindly Login")
+ 
         } 
     }
     

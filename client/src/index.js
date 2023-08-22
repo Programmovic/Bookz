@@ -4,7 +4,6 @@ import App from './App';
 import { ProductsProvider } from "./Context/product-context"
 import { GenreProvider } from "./Context/genre-context"
 import { NewArrivalsProvider } from "./Context/new-arrival-context"
-import { ToastContextProvider } from './Context/toast-context';
 import { UserLoginContextProvider } from './Context/user-login-context'
 import { WishlistContextProvider } from './Context/wishlist-context';
 import { CartContextProvider } from './Context/cart-context';
@@ -14,7 +13,6 @@ import { SearchBarContextProvider } from './Context/search-bar-context'
 export { useProductAvailable } from "./Context/product-context"
 export { useGenre } from "./Context/genre-context"
 export { useNewArrivals } from "./Context/new-arrival-context"
-export { useToast } from './Context/toast-context';
 export { useUserLogin } from './Context/user-login-context'
 export { useWishlist } from './Context/wishlist-context';
 export { useCart } from "./Context/cart-context"
@@ -28,7 +26,6 @@ export { ProductCard } from "./Components/Card/ProductCard"
 export { HorizontalProductCard } from "./Components/HorizontalCard/HorizontalProductCard"
 export { Footer } from "./Components/Footer/Footer"
 export { Sidebar } from './Components/Sidebar/Sidebar'
-export { Toast } from './Components/Toast/Toast'
 export { ShoppingBill } from './Components/ShoppingBill/ShoppingBill'
 export { WishlistProductCard } from './Components/WishlistProductCard/WishlistProductCard'
 export { ProductOrderCard } from './Components/ProductOrderCard/ProductOrderCard'
@@ -48,7 +45,6 @@ ReactDOM.render(
     <UserLoginContextProvider>
       <WishlistContextProvider>
         <CartContextProvider>
-          <ToastContextProvider>
             <NewArrivalsProvider>
               <GenreProvider>
                 <ProductsProvider>
@@ -60,7 +56,6 @@ ReactDOM.render(
                 </ProductsProvider>
               </GenreProvider>
             </NewArrivalsProvider>
-          </ToastContextProvider>
         </CartContextProvider>
       </WishlistContextProvider>
     </UserLoginContextProvider>

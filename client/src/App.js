@@ -3,8 +3,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import axios from "axios"
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { 
-  Navbar, 
-  Toast,
+  Navbar,
   Home,
   Shop, 
   ProductPage,
@@ -39,7 +38,6 @@ function App() {
           <Route path="/cart"           element={<Cart/>} />
           <Route path="/orders"         element={<Orders/>} />
         </Routes>
-        <Toast position="bottom-right"/>
       </div>
     </Router>
   );

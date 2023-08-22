@@ -1,7 +1,7 @@
 import "./ShoppingBill.css"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useCart, useToast, useOrders } from "../../index"
+import { useCart, useOrders } from "../../index"
 import axios from "axios"
 import { loadRazorpayScript } from "../../UtilityFunctions/loadRazorpayScript"
 
@@ -9,7 +9,6 @@ function ShoppingBill()
 {
     const navigate = useNavigate()
     const { userCart, dispatchUserCart } = useCart()
-    const { showToast } = useToast()
     const { dispatchUserOrders }= useOrders()
     let totalDiscount = 0, totalBill = 0, finalBill = 0;
     const [ couponName, setCouponName ] = useState("")
@@ -35,7 +34,6 @@ function ShoppingBill()
 
         if(!res)
         {
-            showToast("error","","Razorpay SDK failed to load, kindly check internet connection!")
             return;
         }
 
@@ -59,8 +57,6 @@ function ShoppingBill()
             "image": "https://raw.githubusercontent.com/Naman-Saxena1/Bookztron-E-Commerce_Book_Store/development/public/favicon-icon.png",
             "order_id": data.id,
             "handler": async function (response){
-                showToast("success","","Payment Successful! 😎")
-                showToast("success","","Order added to your bag!")
                 let newOrderItemsArray = userCart.map(orderItem=>{
                     return {...orderItem, orderId: data.id}
                 })

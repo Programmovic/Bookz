@@ -4,7 +4,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom";
-import { useToast, useWishlist, useCart } from "../../index"
+import { useWishlist, useCart } from "../../index"
 
 function ProductPage()
 {
@@ -12,7 +12,6 @@ function ProductPage()
 
     const { dispatchUserWishlist } = useWishlist()
     const { dispatchUserCart }     = useCart()
-    const { showToast } = useToast()
     const { id } = useParams()
     const productDetailsOnStorage = localStorage.getItem(`${id}`)
     const productdetails = JSON.parse(productDetailsOnStorage)
@@ -75,7 +74,6 @@ function ProductPage()
             if(!user)
             {
                 localStorage.removeItem('token')
-                showToast("warning","","Kindly Login")
                 navigate('/login')
             }
             else
@@ -96,13 +94,13 @@ function ProductPage()
                 if(wishlistUpdateResponse.data.status==="ok")
                 {
                     dispatchUserWishlist({type: "UPDATE_USER_WISHLIST",payload: wishlistUpdateResponse.data.user.wishlist})
-                    showToast("success","","Item successfully added to wishlist")
+
                 }
             }
         }
         else
         {
-            showToast("warning","","Kindly Login")
+            
         } 
     }
 
@@ -117,7 +115,7 @@ function ProductPage()
             if(!user)
             {
                 localStorage.removeItem('token')
-                showToast("warning","","Kindly Login")
+                
                 navigate('/login')
             }
             else
@@ -137,13 +135,13 @@ function ProductPage()
                 if(cartUpdateResponse.data.status==="ok")
                 {
                     dispatchUserCart({type: "UPDATE_USER_CART",payload: cartUpdateResponse.data.user.cart})
-                    showToast("success","","Item successfully added to cart")
+                    
                 }
             }
         }
         else
         {
-            showToast("warning","","Kindly Login")
+            
         } 
     }
 
