@@ -27,7 +27,7 @@ UserRouter.post('/register', async (req, res) => {
 
     try {
         const nextId = await getNextId();
-        user.id = nextId;
+        user.id = parseInt(nextId, 10);;
         const savedUser = await user.save();
         res.json(savedUser);
     } catch (err) {
