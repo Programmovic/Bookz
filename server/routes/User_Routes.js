@@ -6,7 +6,7 @@ const UserRouter = express.Router();
 // //GET ALL Users API
 // =============================================================================
 UserRouter.get('/', async (req, res) => {
-    
+
     try {
         const users = await User.find();
         res.json(users);
@@ -20,16 +20,19 @@ UserRouter.get('/', async (req, res) => {
 // =============================================================================
 UserRouter.post('/register', async (req, res) => {
     const user = new User(req.body);
-    const existing_User = await User.findOne({ username: user.username });
-    if (existing_User) {
+    const existingUser = await User.findOne({ username: user.username });
+    if (existingUser) {
         return res.status(409).json({ error: 'User already exists' });
     }
-    user.id = await getNextId(); // Get the next ID for the stage
-    user.save()
-        .then((savedUser) => res.json(savedUser))
-        .catch((err) => {
-            res.status(500).json({ error: err });
-        });
+
+    try {
+        const nextId = await getNextId();
+        user.id = nextId;
+        const savedUser = await user.save();
+        res.json(savedUser);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 // =============================================================================
 // //LOGIN User API
