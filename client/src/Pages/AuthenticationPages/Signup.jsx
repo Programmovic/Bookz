@@ -22,7 +22,8 @@ function Signup() {
             {
                 username: `${newUserName}`,
                 email: `${newUserEmail}`,
-                password: `${newUserPassword}`
+                password: `${newUserPassword}`,
+                role: `${newUserRole}`
             }
         )
             .then(res => {
