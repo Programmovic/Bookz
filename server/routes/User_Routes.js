@@ -1,6 +1,5 @@
 const express = require('express');
 const User = require('../models/User');
-const getNextId = require('../utils/getNextId');
 const UserRouter = express.Router();
 // =============================================================================
 // //GET ALL Users API
@@ -26,8 +25,6 @@ UserRouter.post('/register', async (req, res) => {
     }
 
     try {
-        const nextId = await getNextId();
-        user.id = parseInt(nextId, 10);
         const savedUser = await user.save();
         res.json(savedUser);
     } catch (err) {
