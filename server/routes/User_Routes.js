@@ -1,7 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
 const getNextId = require('../utils/getNextId');
-const Stage = require('../models/stage');
 const UserRouter = express.Router();
 // =============================================================================
 // //REGISTER User API
