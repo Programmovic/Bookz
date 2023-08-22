@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./UserAuth.css"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
+import axios from '../../Components/base_url'
 import { useToast } from "../../Context/toast-context"
 
 function Signup()
@@ -19,11 +19,11 @@ function Signup()
     {
         event.preventDefault();
         axios.post(
-            "https://bookztron-server.vercel.app/api/signup",
+            "/register",
             {
-                newUserName: `${newUserName}`,
-                newUserEmail: `${newUserEmail}`,
-                newUserPassword : `${newUserPassword}`
+                username: `${newUserName}`,
+                email: `${newUserEmail}`,
+                password : `${newUserPassword}`
             }
         )
         .then(res => {
