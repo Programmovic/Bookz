@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const teacherRouter = require('./routes/Teacher_Routes');
+const teacherRouter = require('./routes/User_Routes');
 const stageRouter = require('./routes/Stages_Routes');
 const groupRouter = require('./routes/Groups_Routes');
 const studentRouter = require('./routes/Student_Routes');
@@ -15,7 +15,7 @@ const GroupAttendance = require('./models/groupAttendance');
 // =============================================================================
 // CONNECT TO MONGO DATABASE
 // =============================================================================
-const uri = 'mongodb+srv://adam:EPQfpcJi2hwnsCoW@cluster0.ujd6hhy.mongodb.net/Tolapy';
+const uri = 'mongodb+srv://adam:EPQfpcJi2hwnsCoW@cluster0.ujd6hhy.mongodb.net/Bookz';
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB database'))

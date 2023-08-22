@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = axios.create({
-    baseURL: "http://localhost:3001/"
+    baseURL: "https://bookz-91j9.onrender.com/"
 })
 
 export default baseURL
