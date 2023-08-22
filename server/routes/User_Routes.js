@@ -47,25 +47,13 @@ UserRouter.post('/login', async (req, res) => {
         res.status(500).json({ error: err });
     }
 });
-// =============================================================================
-// // Get all stages of a specific User
-// =============================================================================
-UserRouter.get('/:UserId/stages', async (req, res) => {
-    try {
-        const UserId = req.params.UserId; // Get the User ID from the URL parameter
-        const stages = await Stage.find({ UserId: UserId }); // Find all stages with the specified User ID
-        res.json(stages);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err);
-    }
-});
+
 // =============================================================================
 // // DELETE ALL UserS
 // =============================================================================
 UserRouter.delete('/', async (req, res) => {
     try {
-        const group = await User.deleteMany();
+        const users = await User.deleteMany();
 
         res.json({ message: 'User deleted successfully' });
     } catch (error) {
