@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const getNextId = require('../utils/getNextId');
 const Stage = require('../models/stage');
 const UserRouter = express.Router();
 // =============================================================================
@@ -11,6 +12,7 @@ UserRouter.post('/register', async (req, res) => {
     if (existing_User) {
         return res.status(409).json({ error: 'User already exists' });
     }
+    User.id = await getNextId(); // Get the next ID for the stage
     User.save()
         .then((savedUser) => res.json(savedUser))
         .catch((err) => {
