@@ -11,6 +11,7 @@ function Signup() {
     const [newUserName, setNewUserName] = useState('')
     const [newUserEmail, setNewUserEmail] = useState('')
     const [newUserPassword, setNewUserPassword] = useState('')
+    const [newUserRole, setNewUserRole] = useState('')
 
     const navigate = useNavigate()
 
@@ -78,6 +79,14 @@ function Signup() {
                         value={newUserPassword}
                         onChange={(event) => setNewUserPassword(event.target.value)}
                         required />
+                </div>
+                <div className="user-auth-input-container">
+                    <label htmlFor="user-auth-input-password"><h4>Role</h4></label>
+                    <select value={optionsState} onChange={(event) => setNewUserRole(event.target.value)}>
+                        <option value="A">Admin</option>
+                        <option value="S">Seller</option>
+                        <option value="B">Buyer</option>
+                    </select>
                 </div>
 
                 <div className="accept-terms-container">
