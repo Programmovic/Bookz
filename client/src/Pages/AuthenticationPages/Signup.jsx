@@ -82,7 +82,7 @@ function Signup() {
                 </div>
                 <div className="user-auth-input-container">
                     <label htmlFor="user-auth-input-password"><h4>Role</h4></label>
-                    <select value={optionsState} onChange={(event) => setNewUserRole(event.target.value)}>
+                    <select value={newUserRole} onChange={(event) => setNewUserRole(event.target.value)}>
                         <option value="A">Admin</option>
                         <option value="S">Seller</option>
                         <option value="B">Buyer</option>
