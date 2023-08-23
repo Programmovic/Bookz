@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const UserRouter = require('./routes/User_Routes');
+const BookRouter = require('./routes/Book_Routes');
 // =============================================================================
 // CONNECT TO MONGO DATABASE
 // =============================================================================
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 // Routes
 app.use("/user", UserRouter);
+app.use("/books", BookRouter);
 
 app.listen(3001, () => {
     console.log('Express server listening on port 3001');
