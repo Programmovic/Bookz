@@ -107,14 +107,16 @@ function Signup() {
                             onChange={(event) => setNewUserPassword(event.target.value)}
                             required />
                     </div>
+                    {localStorage.getItem('user_role') === 'A' && 
                     <div className="user-auth-input-container">
                         <label htmlFor="user-auth-input-password"><h4>Role</h4></label>
-                        <select value={newUserRole} onChange={(event) => setNewUserRole(event.target.value)}>
+                        <select className="user-auth-form-input" value={newUserRole} onChange={(event) => setNewUserRole(event.target.value)}>
                             <option value="A">Admin</option>
                             <option value="S">Seller</option>
                             <option value="B">Buyer</option>
                         </select>
                     </div>
+}
 
                     <div className="accept-terms-container">
                         <input

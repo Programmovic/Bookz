@@ -3,7 +3,8 @@ import './Navbar.css'
 import { Link, useLocation } from "react-router-dom"
 import jwt_decode from "jwt-decode";
 import { useUserLogin, useWishlist, useCart, useOrders, useSearchBar } from "../../index"
-import { BsShopWindow, BsFillBagFill } from "react-icons/bs"
+import { BsShopWindow, BsFillBagFill, BsPerson } from "react-icons/bs"
+import { roleDetector } from '../../UtilityFunctions/role';
 
 function Navbar() {
 
@@ -11,96 +12,100 @@ function Navbar() {
     const { userCart, dispatchUserCart } = useCart()
     const { userOrders, dispatchUserOrders } = useOrders()
     const { setUserLoggedIn } = useUserLogin(false)
- 
+
     const location = useLocation()
     const { searchBarTerm, setSearchBarTerm } = useSearchBar()
 
-    useEffect(()=>{
-        const token=localStorage.getItem('token')
-        if(token)
-        {
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
             const user = jwt_decode(token)
-            
-            if(!user)
-            {
+
+            if (!user) {
                 localStorage.removeItem('token')
                 setUserLoggedIn(false)
             }
-            else
-            {
+            else {
                 setUserLoggedIn(true)
             }
         }
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         function handleInvalidToken() {
-            if(localStorage.getItem('token')!==null)
-            {
+            if (localStorage.getItem('token') !== null) {
                 setUserLoggedIn(true)
             }
-            else
-            {
+            else {
                 setUserLoggedIn(false)
-                dispatchUserWishlist({type:"UPDATE_USER_WISHLIST",payload:[]})
-                dispatchUserCart({type:"UPDATE_USER_CART",payload:[]})
-                dispatchUserOrders({type:"UPDATE_USER_ORDERS",payload:[]})
+                dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: [] })
+                dispatchUserCart({ type: "UPDATE_USER_CART", payload: [] })
+                dispatchUserOrders({ type: "UPDATE_USER_ORDERS", payload: [] })
             }
         }
-        window.addEventListener("storage",handleInvalidToken)
+        window.addEventListener("storage", handleInvalidToken)
 
         return function cleanup() {
             window.removeEventListener('storage', handleInvalidToken)
         }
-    },[userWishlist,userCart])
+    }, [userWishlist, userCart])
 
-    function logoutUser()
-    {
+    function logoutUser() {
         localStorage.removeItem('token')
-        dispatchUserWishlist({type:"UPDATE_USER_WISHLIST",payload:[]})
-        dispatchUserCart({type:"UPDATE_USER_CART",payload:[]})
-        dispatchUserOrders({type:"UPDATE_USER_ORDERS",payload:[]})
+        dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: [] })
+        dispatchUserCart({ type: "UPDATE_USER_CART", payload: [] })
+        dispatchUserOrders({ type: "UPDATE_USER_ORDERS", payload: [] })
         setUserLoggedIn(false)
         localStorage.clear()
     }
-    
     return (
         <div className="top-bar">
             <div className="left-topbar-container">
                 {/* <button id="top-bar-ham-menu-btn" className="icon-btn"><i className="fa fa-bars" aria-hidden="true"></i></button> */}
                 <Link to="/">
-                    <h2 className="top-bar-brand-name">BOOKZ</h2>
+                    <h2 className="top-bar-brand-name">BOOKZ - {roleDetector(localStorage.getItem('user_role'))}</h2>
                 </Link>
                 {
-                    location.pathname==="/shop" && 
+                    location.pathname === "/shop" &&
                     (
                         <div className="search-bar">
-                            <input 
-                                className="search-bar-input" 
+                            <input
+                                className="search-bar-input"
                                 placeholder="Search"
                                 value={searchBarTerm}
-                                onChange={event=>setSearchBarTerm(event.target.value)}
+                                onChange={event => setSearchBarTerm(event.target.value)}
                             />
                         </div>
                     )
                 }
             </div>
             <div className="right-topbar-container">
+                {localStorage.getItem('user_role') === 'A' &&
+                    <Link to="/signup">
+                        <button className="navbar-login-btn solid-primary-btn">Create another Admin</button>
+                    </Link>
+                }
+                <button className="icon-btn" title='Profile'>
+                    <div>
+                        <BsPerson />
+                    </div>
+                </button>
+
                 {
-                    localStorage.getItem('token')!==null
-                    ? (
-                        <button onClick={logoutUser} className="navbar-login-btn solid-primary-btn">Logout</button>
-                    )
-                    : (
-                        <Link to="/login">
-                            <button className="navbar-login-btn solid-primary-btn">Login</button>
-                        </Link>
-                    )
+                    localStorage.getItem('token') !== null
+                        ? (
+                            <button onClick={logoutUser} title={localStorage.getItem('username')} className="navbar-login-btn solid-primary-btn">Logout</button>
+                        )
+                        : (
+                            <Link to="/login">
+                                <button className="navbar-login-btn solid-primary-btn">Login</button>
+                            </Link>
+                        )
                 }
                 <Link to="/shop">
                     <button className="icon-btn">
                         <div>
-                            <BsShopWindow/>
+                            <BsShopWindow />
                         </div>
                     </button>
                 </Link>
@@ -109,7 +114,7 @@ function Navbar() {
                         <div className="icon-count-badge">
                             <i className="fa fa-heart-o fa-x" aria-hidden="true" ></i>
                             {
-                                userWishlist.length!==0
+                                userWishlist.length !== 0
                                 && (<span className="count-badge-x">{userWishlist.length}</span>)
                             }
                         </div>
@@ -120,7 +125,7 @@ function Navbar() {
                         <div className="icon-count-badge">
                             <i className="fa fa-shopping-cart fa-x" aria-hidden="true" ></i>
                             {
-                                userCart.length!==0
+                                userCart.length !== 0
                                 && (<span className="count-badge-x">{userCart.length}</span>)
                             }
                         </div>
@@ -129,15 +134,15 @@ function Navbar() {
                 <Link to="/orders">
                     <button className="icon-btn">
                         <div className="icon-count-badge">
-                        <BsFillBagFill 
-                            style={{
-                                marginBottom:"4px"
-                            }}
-                        />
-                        {
-                            userOrders.length!==0
-                            && (<span className="count-badge-x">{userOrders.length}</span>)
-                        }
+                            <BsFillBagFill
+                                style={{
+                                    marginBottom: "4px"
+                                }}
+                            />
+                            {
+                                userOrders.length !== 0
+                                && (<span className="count-badge-x">{userOrders.length}</span>)
+                            }
                         </div>
                     </button>
                 </Link>
@@ -146,4 +151,4 @@ function Navbar() {
     )
 }
 
-export {Navbar};
+export { Navbar };

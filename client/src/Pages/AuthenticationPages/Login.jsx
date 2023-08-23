@@ -61,13 +61,15 @@ function Login() {
         )
             .then(res => {
 
-                if (res.data.token) {
+                if (res.data.user) {
                     localStorage.setItem('token', res.data.token)
+                    localStorage.setItem('username', res.data.user.username)
+                    localStorage.setItem('user_role', res.data.user.role)
                     setUserLoggedIn(true)
-                    dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: res.data.wishlist })
-                    dispatchUserCart({ type: "UPDATE_USER_CART", payload: res.data.cart })
-                    dispatchUserOrders({ type: "UPDATE_USER_ORDERS", payload: res.data.orders })
                     navigate('/shop')
+                    dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: res.data.user.wishlist })
+                    dispatchUserCart({ type: "UPDATE_USER_CART", payload: res.data.user.cart })
+                    dispatchUserOrders({ type: "UPDATE_USER_ORDERS", payload: res.data.user.orders })
                 }
                 else {
                     throw new Error("Error in user login")
@@ -75,7 +77,7 @@ function Login() {
 
             })
             .catch(err => {
-
+                console.log(err)
             })
     }
 
@@ -89,7 +91,7 @@ function Login() {
                     <input
                         id="user-auth-input-email"
                         className="user-auth-form-input"
-                        type="email"
+                        type="text"
                         placeholder="Email"
                         value={userEmail}
                         onChange={(event) => setUserEmail(event.target.value)}

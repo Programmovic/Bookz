@@ -16,6 +16,7 @@ import {
   useWishlist,
   useCart
 } from "./index"
+import UserProfile from './Pages/Profile/Profile';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/wishlist"       element={<Wishlist/>} />
           <Route path="/cart"           element={<Cart/>} />
           <Route path="/orders"         element={<Orders/>} />
+          <Route path="/profile"         element={<UserProfile/>} />
         </Routes>
       </div>
     </Router>
