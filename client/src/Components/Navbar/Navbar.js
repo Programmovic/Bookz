@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './Navbar.css'
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import jwt_decode from "jwt-decode";
 import { useUserLogin, useWishlist, useCart, useOrders, useSearchBar } from "../../index"
 import { BsShopWindow, BsFillBagFill, BsPerson } from "react-icons/bs"
@@ -15,7 +15,7 @@ function Navbar() {
     const user_id = localStorage.getItem('user_id')
     const location = useLocation()
     const { searchBarTerm, setSearchBarTerm } = useSearchBar()
-
+    const navigate = useNavigate()
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
@@ -57,6 +57,7 @@ function Navbar() {
         dispatchUserOrders({ type: "UPDATE_USER_ORDERS", payload: [] })
         setUserLoggedIn(false)
         localStorage.clear()
+        navigate('/login')
     }
     return (
         <div className="top-bar">
