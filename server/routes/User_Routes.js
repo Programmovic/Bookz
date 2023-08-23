@@ -62,7 +62,7 @@ UserRouter.post('/login', async (req, res) => {
 // =============================================================================
 // // Get USER DATA
 // =============================================================================
-router.get("/profile", (req, res) => {
+UserRouter.get("/profile", (req, res) => {
     const token = req.headers["x-access-token"];
 
     if (!token) {
