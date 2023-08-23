@@ -1,5 +1,5 @@
 const express = require('express');
-const BookRouter = express.BookRouter();
+const BookRouter = express.Router();
 const Book = require('../models/Books'); // Assuming the Book schema is defined in a separate file
 
 // Create a new book
