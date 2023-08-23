@@ -51,7 +51,7 @@ UserRouter.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ error: 'Incorrect password' });
         }
-        const token = jwt.sign({ UserId: User.id }, 'secret_key');
+        const token = jwt.sign({ UserId: User._id }, 'secret_key');
 
         res.json({ User, token });
     } catch (err) {
