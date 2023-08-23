@@ -12,7 +12,10 @@ const userSchema = new mongoose.Schema({
   address: { type: String, default: '' },
   role: { type: String },
   summary: { type: String },
-  join_date: { type: Date, default: Date.now }
+  join_date: { type: Date, default: Date.now },
+  wishlist: [{ type: mongoose.Schema.Types.ObjectId }],
+  orders: [{ type: mongoose.Schema.Types.ObjectId }],
+  cart: [{ type: mongoose.Schema.Types.ObjectId }]
 }, { collection: 'Users' });
 
 // Hash the password before saving to the database

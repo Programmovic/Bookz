@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import jwt_decode from "jwt-decode"
 import "./UserAuth.css"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
+import axios from "../../Components/instance"
 import {
     useUserLogin,
     useWishlist,
@@ -30,7 +30,7 @@ function Login() {
             else {
                 (async function getUpdatedWishlistAndCart() {
                     let updatedUserInfo = await axios.get(
-                        "https://bookztron-server.vercel.app/api/user",
+                        "/user/login",
                         {
                             headers:
                             {
@@ -53,16 +53,16 @@ function Login() {
     function loginUser(event) {
         event.preventDefault();
         axios.post(
-            "https://bookztron-server.vercel.app/api/login",
+            "/user/login",
             {
-                userEmail,
-                userPassword
+                username: `${userEmail}`,
+                password: `${userPassword}`
             }
         )
             .then(res => {
 
-                if (res.data.user) {
-                    localStorage.setItem('token', res.data.user)
+                if (res.data.token) {
+                    localStorage.setItem('token', res.data.token)
                     setUserLoggedIn(true)
                     dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: res.data.wishlist })
                     dispatchUserCart({ type: "UPDATE_USER_CART", payload: res.data.cart })
