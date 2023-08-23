@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useLocation } from "react-router-dom"
-import LibraryIllustration from "../..//Assets/Images/Library_Illustration_1.jpg"
 import './Home.css'
 import jwt_decode from "jwt-decode"
 import {
@@ -64,9 +63,6 @@ function Home() {
 
   return (
     <div className='home-component-container'>
-      <div className='home-page-img-container'>
-        <img className="home-page-background-img" src={LibraryIllustration} alt="Library Illustration" />
-      </div>
 
       <h1 className='homepage-headings'>Genres</h1>
       <div className='genre-cards-container'>
