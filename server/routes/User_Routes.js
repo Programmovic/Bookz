@@ -40,20 +40,20 @@ UserRouter.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const User = await User.findOne({ username });
+        const user = await User.findOne({ username });
 
-        if (!User) {
+        if (!user) {
             return res.status(401).json({ error: 'User not found' });
         }
 
-        const isMatch = await bcrypt.compare(password, User.password);
+        const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(401).json({ error: 'Incorrect password' });
         }
-        const token = jwt.sign({ UserId: User._id }, 'secret_key');
+        const token = jwt.sign({ UserId: user._id }, 'secret_key');
 
-        res.json({ User, token });
+        res.json({ user, token });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err });
