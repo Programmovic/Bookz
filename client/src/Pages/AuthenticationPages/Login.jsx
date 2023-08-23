@@ -65,6 +65,7 @@ function Login() {
                     localStorage.setItem('token', res.data.token)
                     localStorage.setItem('username', res.data.user.username)
                     localStorage.setItem('user_role', res.data.user.role)
+                    localStorage.setItem('user_id', res.data.user._id)
                     setUserLoggedIn(true)
                     navigate('/shop')
                     dispatchUserWishlist({ type: "UPDATE_USER_WISHLIST", payload: res.data.user.wishlist })

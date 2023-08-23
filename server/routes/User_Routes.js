@@ -62,30 +62,17 @@ UserRouter.post('/login', async (req, res) => {
 // =============================================================================
 // // Get USER DATA
 // =============================================================================
-UserRouter.get("/profile", (req, res) => {
-    const token = req.headers["x-access-token"];
-
-    if (!token) {
-        return res.status(401).json({ error: "No token provided" });
+UserRouter.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
     }
-
-    jwt.verify(token, "secret_key", async (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ error: "Failed to authenticate token" });
-        }
-
-        const userId = decoded.id;
-        try {
-            const user = await User.findOne({ _id: userId });
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-            res.status(200).json({ user });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: "Internal server error" });
-        }
-    });
 });
 // =============================================================================
 // // DELETE ALL UserS

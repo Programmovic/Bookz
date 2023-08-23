@@ -12,7 +12,7 @@ function Navbar() {
     const { userCart, dispatchUserCart } = useCart()
     const { userOrders, dispatchUserOrders } = useOrders()
     const { setUserLoggedIn } = useUserLogin(false)
-
+    const user_id = localStorage.getItem('user_id')
     const location = useLocation()
     const { searchBarTerm, setSearchBarTerm } = useSearchBar()
 
@@ -85,7 +85,9 @@ function Navbar() {
                         <button className="navbar-login-btn solid-primary-btn">Create another Admin</button>
                     </Link>
                 }
-                <Link to="/profile">
+                <Link
+                    to={`/profile/${user_id}`}
+                >
                     <div>
                         <BsPerson />
                     </div>
