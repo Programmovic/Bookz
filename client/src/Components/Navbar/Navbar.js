@@ -85,11 +85,11 @@ function Navbar() {
                         <button className="navbar-login-btn solid-primary-btn">Create another Admin</button>
                     </Link>
                 }
-                <button className="icon-btn" title='Profile'>
+                <Link to="/profile">
                     <div>
                         <BsPerson />
                     </div>
-                </button>
+                </Link>
 
                 {
                     localStorage.getItem('token') !== null

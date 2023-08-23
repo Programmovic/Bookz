@@ -69,7 +69,7 @@ UserRouter.get("/profile", (req, res) => {
         return res.status(401).json({ error: "No token provided" });
     }
 
-    jwt.verify(token, "your-secret-key", async (err, decoded) => {
+    jwt.verify(token, "secret_key", async (err, decoded) => {
         if (err) {
             return res.status(401).json({ error: "Failed to authenticate token" });
         }
