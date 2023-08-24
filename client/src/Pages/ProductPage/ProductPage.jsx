@@ -27,7 +27,8 @@ function ProductPage()
         badgeText, 
         outOfStock,
         rating, 
-        description
+        description,
+        sellerID
     } = productdetails
 
     useEffect(()=>{
@@ -152,6 +153,7 @@ function ProductPage()
                 <div className="item-details">
                     <h2>{bookName}</h2>
                     <hr></hr>
+                    <p><b>Seller ID : </b> &nbsp;&nbsp; <span>{sellerID}</span> </p>
                     <p><b>Author : </b> &nbsp;&nbsp; <span>{author}</span> </p>
                     <p className="item-description"><b>Description : </b> &nbsp;&nbsp; <span>{description}</span> </p>
                     <p className="item-rating"><b>Rating : </b> &nbsp;&nbsp; <span>{rating}</span> </p>

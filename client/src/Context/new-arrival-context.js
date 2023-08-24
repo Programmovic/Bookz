@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, useEffect} from 'react'
-import axios from 'axios'
+import axios from '../Components/instance'
 
 const NewArrivalsContext = createContext()
 
