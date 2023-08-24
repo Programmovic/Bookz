@@ -9,7 +9,7 @@ BookRouter.post('/', async (req, res) => {
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (error) {
-    res.status(500).json({ error: "message" });
+    res.status(500).json({ error: error.message });
   }
 });
 
