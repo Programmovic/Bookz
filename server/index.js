@@ -8,7 +8,7 @@ const BookRouter = require('./routes/Book_Routes');
 // =============================================================================
 // CONNECT TO MONGO DATABASE
 // =============================================================================
-const uri = 'mongodb+srv://adam:EPQfpcJi2hwnsCoW@cluster0.ujd6hhy.mongodb.net/Bookz';
+const uri = process.env.MONGO_DB_URI;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB database'))
