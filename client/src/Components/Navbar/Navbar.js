@@ -85,23 +85,24 @@ function Navbar() {
                     <Link to="/signup">
                         <button className="navbar-login-btn solid-primary-btn">Create another Admin</button>
                     </Link>
-                    
+
                 }
                 {localStorage.getItem('user_role') === 'S' &&
                     <Link to="/add_book">
                         <button className="navbar-login-btn solid-primary-btn">Add New Book</button>
                     </Link>
-                    
-                }
-                <Link
-                    to={`/profile/${user_id}`}
-                    className='icon-btn'
-                >
-                    <div>
-                        <BsPerson />
-                    </div>
-                </Link>
 
+                }
+                {localStorage.getItem('user_role') &&
+                    <Link
+                        to={`/profile/${user_id}`}
+                        className='icon-btn'
+                    >
+                        <div>
+                            <BsPerson />
+                        </div>
+                    </Link>
+                }
                 {
                     localStorage.getItem('token') !== null
                         ? (
