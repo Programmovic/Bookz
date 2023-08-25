@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const UserRouter = require('./routes/User_Routes');
 const BookRouter = require('./routes/Book_Routes');
+require('dotenv').config();
 // =============================================================================
 // CONNECT TO MONGO DATABASE
 // =============================================================================
