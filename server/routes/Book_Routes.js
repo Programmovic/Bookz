@@ -1,72 +1,17 @@
 const express = require('express');
 const BookRouter = express.Router();
-const multer = require('multer');
 const Book = require('../models/Books'); // Assuming the Book schema is defined in a separate file
 
-// Configure Multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Specify the directory where uploaded files should be stored
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const fileExtension = file.originalname.split('.').pop();
-    cb(null, uniqueSuffix + '.' + fileExtension); // Set the filename to be unique
-  },
-});
-// Create a Multer upload instance
-const upload = multer({ storage: storage });
-// Create a new book with photo upload
-BookRouter.post('/', upload.single('photo'), async (req, res) => {
+// Create a new book
+BookRouter.post('/', async (req, res) => {
   try {
-    const {
-      sellerID,
-      bookName,
-      author,
-      originalPrice,
-      discountedPrice,
-      discountPercent,
-      imgAlt,
-      badgeText,
-      outOfStock,
-      fastDeliveryAvailable,
-      genre,
-      rating,
-      description,
-    } = req.body;
-    const photo = req.file;
-
-    // Handle if no photo is uploaded
-    if (!photo) {
-      return res.status(400).json({ error: 'No photo uploaded' });
-    }
-
-    // Create a new book instance with the uploaded photo
-    const newBook = new Book({
-      sellerID,
-      bookName,
-      author,
-      originalPrice,
-      discountedPrice,
-      discountPercent,
-      imgSrc: photo.path, // Save the path of the uploaded photo to the book's 'imgSrc' field
-      imgAlt,
-      badgeText,
-      outOfStock,
-      fastDeliveryAvailable,
-      genre,
-      rating,
-      description,
-    });
-    console.log(photo.path)
+    const newBook = new Book(req.body);
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (error) {
-    console.log(error.message)
     res.status(500).json({ error: error.message });
   }
 });
-
 
 // Get all books
 BookRouter.get('/', async (req, res) => {
