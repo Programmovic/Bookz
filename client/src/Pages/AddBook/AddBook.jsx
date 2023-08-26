@@ -21,25 +21,24 @@ function AddBook() {
 
     function addBook(event) {
         event.preventDefault();
-        axios.post(
-            "/books",
-            {
-                sellerID: localStorage.getItem('id'),
-                bookName: bookName,
-                author: author,
-                originalPrice: originalPrice,
-                discountedPrice: discountedPrice,
-                discountPercent: discountPercent,
-                imgSrc: imgSrc,
-                imgAlt: imgAlt,
-                badgeText: badgeText,
-                outOfStock: outOfStock,
-                fastDeliveryAvailable: fastDeliveryAvailable,
-                genre: genre,
-                rating: rating,
-                description: description
-            }
-        )
+        var book_data = {
+            sellerID: localStorage.getItem('user_id'),
+            bookName: bookName,
+            author: author,
+            originalPrice: originalPrice,
+            discountedPrice: discountedPrice,
+            discountPercent: discountPercent,
+            imgSrc: imgSrc,
+            imgAlt: imgAlt,
+            badgeText: badgeText,
+            outOfStock: outOfStock,
+            fastDeliveryAvailable: fastDeliveryAvailable,
+            genre: genre,
+            rating: rating,
+            description: description
+        }
+        console.log(book_data)
+        axios.post("/books", book_data)
             .then(res => {
                 toast.success('Book added successfully!', {
                     position: "bottom-right",
