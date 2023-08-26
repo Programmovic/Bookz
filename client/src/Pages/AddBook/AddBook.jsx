@@ -176,7 +176,7 @@ function AddBook() {
                                 <input
                                     id="image-src"
                                     className="user-auth-form-input"
-                                    type="text"
+                                    type="file"
                                     placeholder="Image Source"
                                     value={imgSrc}
                                     onChange={(event) => setImgSrc(event.target.value)}
