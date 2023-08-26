@@ -62,6 +62,7 @@ BookRouter.post('/', upload.single('photo'), async (req, res) => {
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (error) {
+    console.log(error.message)
     res.status(500).json({ error: error.message });
   }
 });
